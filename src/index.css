@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root[data-theme="light"] {
+  --bg:#f4f6fb; --surface:#ffffff; --surface-2:#eef1f9; --surface-hover:#e4e9f5;
+  --border:#dde3f0; --border-soft:#e9edf7;
+  --text:#131a2a; --text-muted:#5b6478; --text-dim:#8891a5;
+  --accent:#2f6fed; --accent-soft:rgba(47,111,237,.10); --accent-text:#ffffff;
+  --good:#0f9d68; --good-soft:rgba(15,157,104,.10);
+  --warn:#c9720a; --warn-soft:rgba(201,114,10,.10);
+  --bad:#d7373f; --bad-soft:rgba(215,55,63,.10);
+  --shadow: 0 16px 40px -18px rgba(30,40,70,.18);
+}
+:root[data-theme="dark"] {
+  --bg:#0a0e14; --surface:#121826; --surface-2:#1a2236; --surface-hover:#202a42;
+  --border:#232d44; --border-soft:#1a2236;
+  --text:#e9edf7; --text-muted:#8a97b8; --text-dim:#57648a;
+  --accent:#4f8cff; --accent-soft:rgba(79,140,255,.14); --accent-text:#0a0e14;
+  --good:#34d399; --good-soft:rgba(52,211,153,.12);
+  --warn:#ffb020; --warn-soft:rgba(255,176,32,.14);
+  --bad:#fb7185; --bad-soft:rgba(251,113,133,.12);
+  --shadow: 0 20px 60px -20px rgba(0,0,0,.6);
+}
+:root[data-theme="ocean"] {
+  --bg:#061318; --surface:#0c1e26; --surface-2:#122a34; --surface-hover:#173544;
+  --border:#1c3542; --border-soft:#122a34;
+  --text:#e3f6fb; --text-muted:#7fa8b5; --text-dim:#4d7482;
+  --accent:#22d3ee; --accent-soft:rgba(34,211,238,.14); --accent-text:#061318;
+  --good:#2dd4bf; --good-soft:rgba(45,212,191,.14);
+  --warn:#fbbf24; --warn-soft:rgba(251,191,36,.14);
+  --bad:#f87171; --bad-soft:rgba(248,113,113,.12);
+  --shadow: 0 20px 60px -20px rgba(0,0,0,.7);
+}
+:root[data-theme="sunset"] {
+  --bg:#150c0a; --surface:#1f130f; --surface-2:#2a1a14; --surface-hover:#34211a;
+  --border:#3a251c; --border-soft:#2a1a14;
+  --text:#fbe9dd; --text-muted:#c39177; --text-dim:#835f4b;
+  --accent:#fb7a3c; --accent-soft:rgba(251,122,60,.16); --accent-text:#150c0a;
+  --good:#a3e635; --good-soft:rgba(163,230,53,.14);
+  --warn:#fbbf24; --warn-soft:rgba(251,191,36,.14);
+  --bad:#f43f5e; --bad-soft:rgba(244,63,94,.14);
+  --shadow: 0 20px 60px -20px rgba(0,0,0,.7);
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, .font-display { font-family: 'Space Grotesk', sans-serif; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+::selection { background: var(--accent-soft); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.4;} }
+.animate-pulse-slow { animation: pulse 2s infinite; }
+
+@keyframes toast-in { from{ opacity:0; transform:translateY(6px);} to{ opacity:1; transform:none; } }
+.animate-toast-in { animation: toast-in .18s ease-out; }
+
+/* thin scrollbar for tables */
+.thin-scroll::-webkit-scrollbar { height: 8px; width: 8px; }
+.thin-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 8px; }
+
+/* --- n8n chat widget: follow the active dashboard theme ---
+   Scoped to #n8n-chat-root (not :root) on purpose: the widget's own
+   chat.css is imported lazily inside ChatWidget.tsx, so it's injected
+   into the page *after* this stylesheet and would otherwise win the
+   cascade for equal-specificity `:root` rules regardless of source
+   order in this file. An ID selector always outranks a `:root`
+   pseudo-class, so this keeps our theme values in charge either way. */
+#n8n-chat-root {
+  --chat--color-primary: var(--accent);
+  --chat--color-primary-shade-50: var(--accent);
+  --chat--color-primary-shade-100: var(--accent);
+  --chat--color-secondary: var(--good);
+  --chat--color-secondary-shade-50: var(--good);
+  --chat--color-white: var(--surface);
+  --chat--color-light: var(--surface-2);
+  --chat--color-light-shade-50: var(--border-soft);
+  --chat--color-light-shade-100: var(--border);
+  --chat--color-medium: var(--border);
+  --chat--color-dark: var(--text);
+  --chat--color-disabled: var(--text-dim);
+  --chat--color-typing: var(--text-muted);
+  --chat--border-radius: 12px;
+  --chat--spacing: 0.85rem;
+  --chat--window--width: 380px;
+  --chat--window--height: 560px;
+  --chat--header--background: var(--surface);
+  --chat--header--color: var(--text);
+  --chat--heading--font-size: 1rem;
+  --chat--subtitle--font-size: 0.75rem;
+  --chat--textarea--height: 52px;
+  --chat--message--font-size: 0.85rem;
+  --chat--message--bot--background: var(--surface-2);
+  --chat--message--bot--color: var(--text);
+  --chat--message--user--background: var(--accent);
+  --chat--message--user--color: var(--accent-text);
+  --chat--toggle--background: var(--accent);
+  --chat--toggle--hover--background: var(--accent);
+  --chat--toggle--active--background: var(--accent);
+  --chat--toggle--color: var(--accent-text);
+  --chat--toggle--size: 56px;
+  --chat--body--background: var(--bg);
+  --chat--input--background: var(--surface);
+  --chat--input--text-color: var(--text);
+  --chat--input--border: 1px solid var(--border);
+}
+.n8n-chat, #n8n-chat-root { font-family: 'Inter', system-ui, sans-serif; }
+
+/* --- Task 2: make the chat panel more attractive --- */
+#n8n-chat-root {
+  --chat--window--border-radius: 20px;
+  --chat--input--border-radius: 10px;
+  --chat--input--border-active: 1px solid var(--accent);
+  --chat--input--send--button--background: var(--accent);
+  --chat--input--send--button--color: var(--accent-text);
+  --chat--input--send--button--background-hover: var(--accent);
+  --chat--input--send--button--color-hover: var(--accent-text);
+  --chat--input--file--button--background: var(--surface-2);
+  --chat--input--file--button--color: var(--text-muted);
+  --chat--input--file--button--background-hover: var(--surface-hover);
+  --chat--input--file--button--color-hover: var(--text);
+}
+#n8n-chat-root .chat-window-wrapper .chat-window {
+  box-shadow: var(--shadow);
+}
+#n8n-chat-root .chat-window-wrapper .chat-window-toggle {
+  box-shadow: var(--shadow);
+}
+#n8n-chat-root .chat-input-send-button,
+#n8n-chat-root .chat-input-file-button {
+  border-radius: 10px;
+}
+/* Header: room + a small bot avatar badge next to the title/subtitle */
+#n8n-chat-root .chat-layout .chat-header {
+  position: relative;
+  padding-left: calc(var(--chat--header--padding) + 40px);
+}
+#n8n-chat-root .chat-layout .chat-header::before {
+  content: '';
+  position: absolute;
+  left: var(--chat--header--padding);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+}
+#n8n-chat-root .chat-layout .chat-header::after {
+  content: '';
+  position: absolute;
+  left: calc(var(--chat--header--padding) + 9px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background-color: var(--accent);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 8V4H8'/><rect width='16' height='12' x='4' y='8' rx='2'/><path d='M2 14h2'/><path d='M20 14h2'/><path d='M15 13v2'/><path d='M9 13v2'/></svg>") no-repeat center / contain;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 8V4H8'/><rect width='16' height='12' x='4' y='8' rx='2'/><path d='M2 14h2'/><path d='M20 14h2'/><path d='M15 13v2'/><path d='M9 13v2'/></svg>") no-repeat center / contain;
+}
+/* Smooth message fade/slide-in */
+@keyframes relay-chat-msg-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+#n8n-chat-root .chat-message { animation: relay-chat-msg-in .28s ease-out both; }
+
+/* --- Task 1: floating greeting bubble, left of the launcher button --- */
+.relay-chat-bubble-wrap {
+  position: fixed;
+  right: calc(0.85rem + 56px + 12px);
+  bottom: 0.85rem;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  z-index: 9998;
+  pointer-events: none;
+}
+.relay-chat-bubble {
+  pointer-events: auto;
+  position: relative;
+  display: block;
+  max-width: 220px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.relay-chat-bubble::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -6px;
+  width: 12px;
+  height: 12px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  transform: translateY(-50%) rotate(-45deg);
+}
+@keyframes relay-chat-bubble-in {
+  0% { opacity: 0; transform: translateY(6px) scale(.92); }
+  60% { opacity: 1; transform: translateY(-4px) scale(1.03); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.relay-chat-bubble-in { animation: relay-chat-bubble-in .55s cubic-bezier(.34,1.56,.64,1) both; }
+@media (max-width: 480px) {
+  .relay-chat-bubble-wrap { display: none; }
+}
+
+/* Swap the default chat-bubble toggle icon for a bot/AI glyph, via CSS
+   mask so it always follows --chat--toggle--color (theme-aware). */
+#n8n-chat-root .chat-window-toggle svg { display: none; }
+#n8n-chat-root .chat-window-toggle { position: relative; }
+#n8n-chat-root .chat-window-toggle::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 28px;
+  height: 28px;
+  background-color: var(--chat--toggle--color);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 8V4H8'/><rect width='16' height='12' x='4' y='8' rx='2'/><path d='M2 14h2'/><path d='M20 14h2'/><path d='M15 13v2'/><path d='M9 13v2'/></svg>") no-repeat center / contain;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 8V4H8'/><rect width='16' height='12' x='4' y='8' rx='2'/><path d='M2 14h2'/><path d='M20 14h2'/><path d='M15 13v2'/><path d='M9 13v2'/></svg>") no-repeat center / contain;
+}
